@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
     this.handlePeople = this.handlePeople.bind(this);
     this.checkIfFood = this.checkIfFood.bind(this);
     this.checkIfPharm = this.checkIfPharm.bind(this);
-    // this.checkIfElectronics = this.checkIfElectronics.bind(this);
+    this.checkIfElectronics = this.checkIfElectronics.bind(this);
 
 
   }
@@ -45,8 +45,6 @@ import ReactDOM from 'react-dom';
 
   }
   checkIfPharm(props) {
-    // console.log('props food', props);
-    // console.log('props.isFood', this.state.isFood);
     if(this.state.isPharm === true){
       this.setState({
         isPharmMarkup: 0,
@@ -62,23 +60,21 @@ import ReactDOM from 'react-dom';
 
   }
 
-  // checkIfElectronics(props) {
-  //   // console.log('props food', props);
-  //   // console.log('props.isFood', this.state.isFood);
-  //   if(this.state.isElectonics === true){
-  //     this.setState({
-  //       isElectonicsMarkup: 0,
-  //       isElectonics:!this.state.isElectonics
-  //     })
-  //   }
-  //   if(this.state.isElectonics === false){
-  //     this.setState({
-  //       isElectonicsMarkup: 0.02,
-  //       isElectonics:!this.state.isElectonics
-  //     })
-  //   }
-  //
-  // }
+  checkIfElectronics(props) {
+    if(this.state.isElectronics === true){
+      this.setState({
+        isElectronicsMarkup: 0,
+        isElectronics:!this.state.isElectronics
+      })
+    }
+    if(this.state.isElectronics === false){
+      this.setState({
+        isElectronicsMarkup: 0.02,
+        isElectronics:!this.state.isElectronics
+      })
+    }
+
+  }
   calculateTotal(value){
     var jobMarkup = this.state.withJobMarkup;
     var peopleMarkup = this.state.people * .012 * jobMarkup ;
@@ -88,24 +84,15 @@ import ReactDOM from 'react-dom';
     var pharmMarkupValue = this.state.isPharmMarkup;
     var pharmMarkup = pharmMarkupValue * jobMarkup;
 
-    // var electronicsMarkupValue = this.state.isElectronicsMarkup;
-    // var electronicsMarkup = electronicsMarkupValue * jobMarkup;
+    var electronicsMarkupValue = this.state.isElectronicsMarkup;
+    var electronicsMarkup = electronicsMarkupValue * jobMarkup;
 
     var calculateTotal = jobMarkup
                         +peopleMarkup
                         +foodMarkup
-                        +pharmMarkup;
-                        // +electronicsMarkup;
+                        +pharmMarkup
+                        +electronicsMarkup;
 
-    console.log('people', peopleMarkup);
-    console.log('jobMarkup', jobMarkup);
-    console.log('foodMarkupValue', foodMarkupValue);
-    console.log('foodMarkup', foodMarkup);
-    console.log('pharmMarkup', pharmMarkupValue);
-
-    // console.log('electronicsMarkup', electronicsMarkup);
-
-    console.log('calculateTotal', calculateTotal);
 
     this.setState({
       total: calculateTotal
@@ -127,6 +114,7 @@ render(){
       <li># of People <input type="number" onChange={ this.handlePeople } /></li>
       <li><input type="checkbox" id="food" onChange={this.checkIfFood} checked={this.state.isFood}/> Food </li>
       <li><input type="checkbox" id="pharm" onChange={this.checkIfPharm} checked={this.state.isPharm}/> Pharm </li>
+      <li><input type="checkbox" id="electronic" onChange={this.checkIfElectronics} checked={this.state.isElectronics}/> Electronics </li>
 
 
 

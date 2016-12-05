@@ -8,26 +8,32 @@ import ReactDOM from 'react-dom';
     super(props); // super GIVES US ACCESS TO 'THIS' !! *****
     this.state = {initialinput:0, withJobMarkup:0};
     this.handleInitialCost = this.handleInitialCost.bind(this);
+    this.handlePeople = this.handlePeople.bind(this);
+
 
 
   }
   handleInitialCost(e) {
-    console.log('e', e.target.value)
     this.setState({
       initialinput: e.target.value,
-      withJobMarkup: parseFloat(e.target.value) * (5/100) + parseFloat(e.target.value)
+      withJobMarkup: parseFloat(e.target.value) * 0.05 + parseFloat(e.target.value)
      })
 
   }
   calculateTotal(value){
-    // console.log('value', value);
     var jobMarkup = this.state.withJobMarkup;
     var foodMarkup = this.state.isFood;
+    var peopleMarkup = this.state.people * .012 * jobMarkup;
 
     var calculateTotal = jobMarkup
+                        +peopleMarkup
     this.setState({
       total: calculateTotal
     })
+  }
+
+  handlePeople(props){
+    this.setState({ people: props.target.value});
   }
   // in ES6 YOU HAVE TO USE render()  render: function() will not work
 
@@ -38,9 +44,10 @@ render(){
     <div className="markup-calculator">
     <label >Initial Cost!! </label>
     <input id="initial-cost" type="number" onChange={ this.handleInitialCost } />
-    <h3>With Job Rate: {parseFloat(this.state.initialinput) * (5/100) + parseFloat(this.state.initialinput)}</h3>
+    <h3>With Job Rate: {parseFloat(this.state.initialinput) * 0.05 + parseFloat(this.state.initialinput)}</h3>
 
     <ul>
+      <li># of People <input type="number" onChange={ this.handlePeople } /></li>
 
     </ul>
     <button onClick={ () => this.calculateTotal(this) }>Calculate</button>

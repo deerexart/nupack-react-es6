@@ -119,9 +119,38 @@ render(){
 
 
     </ul>
+
     <button onClick={ () => this.calculateTotal(this) }>Calculate</button>
 
     <h3>Final Cost Estimate: {this.state.total}</h3>
+
+    <br/>
+    <h3>Dynamic Experiment</h3>
+    <ul>
+      <li>
+        Food Markup: {(this.state.isFoodMarkup * this.state.withJobMarkup) }
+
+      </li>
+      <li>
+        Pharm Markup: {(this.state.isPharmMarkup * this.state.withJobMarkup) }
+
+      </li>
+      <li>
+        Pharm Markup: {(this.state.isElectronicsMarkup * this.state.withJobMarkup) }
+
+      </li>
+
+      <li>People: {this.state.people * 0.012 * this.state.withJobMarkup}</li>
+
+        <li>Final Cost: {
+          (this.state.withJobMarkup)
+          +(this.state.people * 0.012 * this.state.withJobMarkup)
+          +(this.state.isFoodMarkup * this.state.withJobMarkup)
+          +(this.state.isPharmMarkup * this.state.withJobMarkup)
+          +(this.state.isElectronicsMarkup * this.state.withJobMarkup)
+        }</li>
+
+    </ul>
     </div>
   )
 }

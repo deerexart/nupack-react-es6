@@ -179,4 +179,37 @@ it('checking check box function & states: isElectronics:false/isElectronicsMarku
 
 });
 
+/// PHARM BOOLEAN & STATE CHECKS
+it('SHOULD BE FALSE testing pharm checkbox boolean initial state ... ', () =>{
+const wrapper = mount(<CalculateMarkup />);
+wrapper.setState({ isPharm: false });
+
+let checkbox = wrapper.find({ type: 'checkbox', id:'pharm' });
+
+expect(checkbox.props().checked).to.equal(false);
+
+wrapper.setState({isPharm:true});
+expect(checkbox.props().checked).to.equal(true);
+
+});
+
+it('checking check box function & states: isPharm:false/isPharmMarkup:0.  When state of isPharm===true, isPharmMarkup===.0.075', ()=>{
+
+    const wrapper = shallow(<CalculateMarkup  />);
+    const pharmCheck = wrapper.find('input#pharm');
+    const isPharmCheckState = wrapper.state('isPharm');
+    const isPharmMarkupState = wrapper.state('isPharmMarkup');
+    const changePharmState = true;
+
+    expect(isPharmCheckState).to.equal(false);
+    expect(isPharmMarkupState).to.equal(0);
+
+    pharmCheck.simulate('change', changePharmState);
+
+    expect(wrapper.state('isPharm')).to.equal(true);
+    expect(wrapper.state('isPharmMarkup')).to.equal(.075);
+
+});
+
+
 });

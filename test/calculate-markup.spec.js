@@ -303,5 +303,60 @@ it('USING JUST ISFOOD BOOLEAN... Should update total with food markup cost when 
 
 
 })
+/* TESTING CALCULATE TOTAL TEST 4: Initial input, jobmarkup, people, food */
+it('SHOULD update total to include food and people markup USING FOOD BOOLEAN AND NUMBER OF PEOPLE UPDATES...should calulate total based on given state values and update total based on changed state values ', ()=>{
+  const wrapper = mount(<CalculateMarkup  />);
+  const totalCheck = wrapper.state('total');
+  const foodCheck = wrapper.find('input#food');
+  const isFoodCheckState = wrapper.state('isFood');
+  const isFoodMarkupState = wrapper.state('isFoodMarkup');
+  const changeFoodState = true;
+  const allStates = wrapper.state();
+  const peopleInput = wrapper.find('input#people');
+  const updatePeople = {target:{value:3}};
+  const calculateTotal = wrapper.find('calculateTotal');
+  //setting jobMarkup based on initial input === 1299.99
+  const updateTotal = wrapper.setState({
+    initialinput: 0,
+    withJobMarkup:0
+
+  })
+
+  const initialInputValue = wrapper.find('input#initial-cost');
+  const initialInputUpdate = {target:{value:1299.99}};
+  const calculateTotalButton = wrapper.find('button#calculate');
+
+  //making sure initial input is 0
+  expect(wrapper.state('initialinput')).to.equal(0);
+  //making sure witih job mark up is 0, because it's value depends on initial input
+  expect(wrapper.state('withJobMarkup')).to.equal(0);
+
+  //update initial input
+  initialInputValue.simulate('change', initialInputUpdate);
+  expect(wrapper.state('initialinput')).to.equal(1299.99);
+
+
+  // update total with updated job markup value
+  wrapper.instance().calculateTotal(updateTotal);
+  // All bool === false & people === 0
+  //Therefore total should just be job markup + initial input
+  expect(wrapper.state('total')).to.equal(1364.9895);
+  //making sure food markup is starting at 0
+  // will remain 0, until isFood become true.
+  expect(wrapper.state('isFoodMarkup')).to.equal(0);
+  //change food state to be true
+  foodCheck.simulate('change', changeFoodState);
+  //update calculateTotal function
+  wrapper.instance().calculateTotal(updateTotal);
+  //
+  expect(wrapper.state('isFoodMarkup')).to.equal(.13);
+  expect(wrapper.state('total')).to.equal(1542.4381349999999);
+
+  // lets add some people markup
+  peopleInput.simulate('change', updatePeople);
+  wrapper.instance().calculateTotal(updateTotal);
+  expect(wrapper.state('people')).to.equal(3);
+  expect(wrapper.state('total')).to.equal(1591.5777569999998);
+})
 
 });

@@ -20,6 +20,7 @@
     "enzyme": "^2.6.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "sinon": "^1.17.6",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },

@@ -112,4 +112,38 @@ it('Test handlePeople state.. should be 0, on change should be 3', ()=>{
       expect(wrapper.find('#food')).to.have.length(1);
     })
 
+/* Checkbox breakdown tests */
+
+/// FOOD BOOLEAN & STATE CHECK
+// this test now seems redundant... seeing as the next one uses simulate and this just sets a new state...
+// Keep it for reference anyway because it's the only place I use 'let' in these tests
+
+    it('testing food checkbox boolean to be false, and update to be true ... ', () =>{
+    const wrapper = mount(<CalculateMarkup />);
+    wrapper.setState({ isFood: false });
+
+   let checkbox = wrapper.find({ type: 'checkbox', id:'food' });
+   expect(checkbox.props().checked).to.equal(false);
+   wrapper.setState({isFood:true});
+   expect(checkbox.props().checked).to.equal(true);
+
+});
+it('checking check box function & states: isFood:false/isFoodMarkup:0.  When state of isFood===true, isFoodMarkup===.13', ()=>{
+
+    const wrapper = shallow(<CalculateMarkup  />);
+    const foodCheck = wrapper.find('input#food');
+    const isFoodCheckState = wrapper.state('isFood');
+    const isFoodMarkupState = wrapper.state('isFoodMarkup');
+    const changeFoodState = true;
+
+    expect(isFoodCheckState).to.equal(false);
+    expect(isFoodMarkupState).to.equal(0);
+
+    foodCheck.simulate('change', changeFoodState);
+
+    expect(wrapper.state('isFood')).to.equal(true);
+    expect(wrapper.state('isFoodMarkup')).to.equal(.13);
+
+});
+
 });

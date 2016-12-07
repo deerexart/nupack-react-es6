@@ -95,4 +95,21 @@ it('Test handlePeople state.. should be 0, on change should be 3', ()=>{
     expect(wrapper.state('people')).to.equal(3);
 });
 
+/* ####################### CHECKBOX TESTS #######################   */
+
+
+    it('should be defined for isFood, isPharm, isElectronics', () =>{
+        const wrapper = mount(<CalculateMarkup/>);
+      expect(wrapper.state().isFood).to.be.defined;
+      expect(wrapper.state().isElectronics).to.be.defined;
+      expect(wrapper.state().isPharm).to.be.defined;
+    })
+    it('should have states of false for isFood, isPharm, isElectronics', () =>{
+        const wrapper = mount(<CalculateMarkup/>);
+      expect(wrapper.state().isFood).to.be.false;
+      expect(wrapper.state().isElectronics).to.be.false;
+      expect(wrapper.state().isPharm).to.be.false;
+      expect(wrapper.find('#food')).to.have.length(1);
+    })
+
 });

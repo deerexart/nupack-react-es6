@@ -86,12 +86,12 @@ it('Should start off as 0, handleInitialCost should update jobmark up based on u
 it('Test handlePeople state.. should be 0, on change should be 3', ()=>{
 
     const wrapper = shallow(<CalculateMarkup  />);
-    const peopleInput = wrapper.find('input#people');
+    const handlePeople = wrapper.find('input#people');
     const changedInput = {target:{value:3}};
 
     //actually simulate event
     expect(wrapper.state('people')).to.equal(0);
-    peopleInput.simulate('change', changedInput);
+    handlePeople.simulate('change', changedInput);
     expect(wrapper.state('people')).to.equal(3);
 });
 

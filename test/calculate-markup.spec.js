@@ -210,6 +210,41 @@ it('checking check box function & states: isPharm:false/isPharmMarkup:0.  When s
     expect(wrapper.state('isPharmMarkup')).to.equal(.075);
 
 });
+/* CALCULATE TOTAL TESTS (there are 4) */
+
+/* TESTING CALCULATE TOTAL : TEST 1 -> Just package price w/ jobMarkup */
+
+
+it('USING INITIAL INPUT & JOB MARK UP ... Should get initial states, which are all 0, then update initial state, and job mark up value (based on initial state) ', ()=>{
+  //getting all the things
+  const wrapper = mount(<CalculateMarkup  />);
+  const totalCheck = wrapper.state('total');
+  const allStates = wrapper.state();
+  const calculateTotal = wrapper.find('calculateTotal');
+  const initialInputValue = wrapper.find('input#initial-cost');
+  const initialInputUpdate = {target:{value:1299.99}};
+  const calculateTotalButton = wrapper.find('button#calculate');
+  const updateTotal = wrapper.setState({
+    initialinput: 0,
+    withJobMarkup:0
+
+  })
+
+  //making sure initial input is 0
+  expect(wrapper.state('initialinput')).to.equal(0);
+  //making sure witih job mark up is 0, because it's value depends on initial input
+  expect(wrapper.state('withJobMarkup')).to.equal(0);
+  //update initial input
+  initialInputValue.simulate('change', initialInputUpdate);
+  expect(wrapper.state('initialinput')).to.equal(1299.99);
+  // update total with updated job markup value
+  wrapper.instance().calculateTotal(updateTotal);
+  // All bool === false & people === 0
+  //Therefore total should just be job markup + initial input
+  expect(wrapper.state('total')).to.equal(1364.9895);
+
+
+})
 
 
 });

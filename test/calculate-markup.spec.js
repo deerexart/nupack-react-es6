@@ -146,4 +146,37 @@ it('checking check box function & states: isFood:false/isFoodMarkup:0.  When sta
 
 });
 
+/// Moving on to ELECTRONICS
+/// ELECTRONICS BOOLEAN & STATE CHECKS
+it('testing electronics checkbox boolean is false, and updating state to true... ', () =>{
+const wrapper = mount(<CalculateMarkup />);
+wrapper.setState({ isElectronics: false });
+
+let checkbox = wrapper.find({ type: 'checkbox', id:'electronic' });
+
+expect(checkbox.props().checked).to.equal(false);
+
+wrapper.setState({isElectronics:true});
+expect(checkbox.props().checked).to.equal(true);
+
+});
+
+it('checking check box function & states: isElectronics:false/isElectronicsMarkup:0.  When state of isElectronics===true, isElectronicsMarkup===.02', ()=>{
+
+    const wrapper = shallow(<CalculateMarkup  />);
+    const electronicCheck = wrapper.find('input#electronic');
+    const isElectronicsCheckState = wrapper.state('isElectronics');
+    const isElectronicsMarkupState = wrapper.state('isElectronicsMarkup');
+    const changeElectronicState = true;
+
+    expect(isElectronicsCheckState).to.equal(false);
+    expect(isElectronicsMarkupState).to.equal(0);
+
+    electronicCheck.simulate('change', changeElectronicState);
+
+    expect(wrapper.state('isElectronics')).to.equal(true);
+    expect(wrapper.state('isElectronicsMarkup')).to.equal(.02);
+
+});
+
 });

@@ -44,6 +44,55 @@ it('should have states for inital input, withJobMarkup, noOfPeople', () =>{
 
 });
 
+/* ###################### STATE AND FUNCTION TESTS ###################### */
 
+// Testing package price fn/state before any markups
+it('Test initial input state.. should be 0, on change should be 1299.99', ()=>{
+
+    const wrapper = shallow(<CalculateMarkup  />);
+
+    const initialInputSimulate = wrapper.find('input#initial-cost');
+    const changedInput = {target:{value:1299.99}};
+
+    //actually simulate event
+    expect(wrapper.state('initialinput')).to.equal(0);
+    initialInputSimulate.simulate('change', changedInput);
+    expect(wrapper.state('initialinput')).to.equal(1299.99);
+
+});
+
+/* TESTS handleInitialCost  */
+
+it('Should start off as 0, handleInitialCost should update jobmark up based on updated input value ', ()=>{
+  //getting all the things
+  const wrapper = shallow(<CalculateMarkup  />);
+
+  const handleInitialCost = wrapper.find('input#initial-cost')
+  const updatePeople = {target:{value:3}};
+
+  const updateInput = {target:{value:1299.99}};
+
+  //making sure initial input is 0
+  expect(wrapper.state('initialinput')).to.equal(0 );
+  expect(wrapper.state('withJobMarkup')).to.equal(0);
+  // wrapper.instance().calculateTotal(updateTotal);
+  wrapper.instance().handleInitialCost(updateInput);
+  expect(wrapper.state('initialinput')).to.equal(1299.99);
+  expect(wrapper.state('withJobMarkup')).to.equal(1364.9895);
+
+})
+
+//Testing number of people handler update & initial state
+it('Test handlePeople state.. should be 0, on change should be 3', ()=>{
+
+    const wrapper = shallow(<CalculateMarkup  />);
+    const peopleInput = wrapper.find('input#people');
+    const changedInput = {target:{value:3}};
+
+    //actually simulate event
+    expect(wrapper.state('people')).to.equal(0);
+    peopleInput.simulate('change', changedInput);
+    expect(wrapper.state('people')).to.equal(3);
+});
 
 });

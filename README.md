@@ -18,7 +18,7 @@ That's it.  package.json has all dependencies needed so npm knows what is up whe
 About project
 
 This is my second reactJs attempt w/ Enzyme/Mocha/Chai
-I converted the es6 exercise to es6
+I converted the es5 exercise to es6
 Some of the tests had to change a bit, I noticed es5 is a bit more picky about putting things in variables...
 I like es6 more, if anyone was curious.
 
